@@ -1,6 +1,6 @@
 # What I've learned
 
-- ## Chapter 3
+## Chapter 3
   - How to handle StatusBar in both ios and android
   - How to import images
   - Image's sizes depend on device's ppi
@@ -9,14 +9,14 @@
   - Touchable Components
   - OS detect
 
-- ## Chapter 4
+## Chapter 4
   - FlatList
   - Useful library for font and svg -> `react-native-vector-icons`
   - AsyncStorage is key-value paired storage that can be used in react-native
     - It is similar to localStorage on browser but it's an async. It returns a Promise.
     - If AsyncStorage handles large data, it decreases the performance.
 
-- ## Chapter 5
+## Chapter 5
   - How to stack Screen(page) like web history using library
   - How to naviagate between screens
   - component that being used as a screen can receive objects such as `navigation` and `route`
@@ -55,5 +55,17 @@
   - useNavigation, useRoute hooks to use navigation and route objects globally without passing props
   - Even if navigates to other screen, the next screen just stacks up on first screen and the first one doesn't get unmounted (so cannot use useEffect for mount/unmount). In this case, use `useFocusEffect` and make sure use it with `useCallback`.
   
-
- 
+## Chapter 6
+  - how to plan out screen structure (for small app)
+  - uuid library uses Node.js' crypo function which is not included in react-native, so need to install `react-native-get-random-values` library to make uuid work.
+  - Useful library for date -> `date-fns`
+  - How to use Animation
+    - `useNativeDriver` is one of options that can passeed in `Animated.timing` 's second argument.
+      - if it's set to true, then the process of animation is handled on native level, not in javascript engine
+      - It has to be set false, if the animation affects the layout such as left, width, paddingLeft, marginLeft, etc.
+    - use transfrom instead of left or top for better performance
+    - use `animation.interpolate()` for appling multipe styles at once using inputRange and outputRange
+  - FlatList has `onEndReached` and `onEndReachedThreshold`, and those are for implementing infinite scroll
+  - For bouncing animation, use `Animated.spring()`
+    - There is several options: tension, friction, speed, bounciness, etc.
+    - tension and friction must be used together and speed and bounciness must be used together but cannot combine interchangeably
