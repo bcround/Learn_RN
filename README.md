@@ -69,3 +69,6 @@
   - For bouncing animation, use `Animated.spring()`
     - There is several options: tension, friction, speed, bounciness, etc.
     - tension and friction must be used together and speed and bounciness must be used together but cannot combine interchangeably
+
+## Chapter 7
+  -

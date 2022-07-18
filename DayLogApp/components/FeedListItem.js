@@ -1,19 +1,10 @@
 import React from 'react';
 import {Platform, Pressable, StyleSheet, Text} from 'react-native';
-import {format, formatDistanceToNow} from 'date-fns';
+import {formatDistanceToNow, format} from 'date-fns';
 import {ko} from 'date-fns/locale';
+import {useNavigation} from '@react-navigation/native';
 
-const truncate = text => {
-  const replaced = text.replace(/\n/g, ' ');
-
-  if (replaced.length <= 100) {
-    return replaced;
-  }
-
-  return replaced.slice(0, 100).concat('...');
-};
-
-const formatDate = date => {
+function formatDate(date) {
   const d = new Date(date);
   const now = Date.now();
   const diff = (now - d.getTime()) / 1000;
@@ -21,16 +12,30 @@ const formatDate = date => {
   if (diff < 60 * 1) {
     return '방금 전';
   }
-
   if (diff < 60 * 60 * 24 * 3) {
     return formatDistanceToNow(d, {addSuffix: true, locale: ko});
   }
+  return format(d, 'PPP EEE p', {locale: ko});
+}
 
-  return format(d, 'PPP EEE p', {locale: 'ko'});
-};
+function truncate(text) {
+  // 정규식을 사용해 모든 줄 바꿈 문자 제거
+  const replaced = text.replace(/\n/g, ' ');
+  if (replaced.length <= 100) {
+    return replaced;
+  }
+  return replaced.slice(0, 100).concat('...');
+}
 
-const FeedListItem = ({log}) => {
-  const {title, body, date} = log;
+function FeedListItem({log}) {
+  const {title, body, date} = log; // 사용하기 편하게 객체 구조 분해 할당
+  const navigation = useNavigation();
+
+  const onPress = () => {
+    navigation.navigate('Write', {
+      log,
+    });
+  };
 
   return (
     <Pressable
@@ -38,13 +43,14 @@ const FeedListItem = ({log}) => {
         styles.block,
         Platform.OS === 'ios' && pressed && {backgroundColor: '#efefef'},
       ]}
-      android_ripple={{color: '#ededed'}}>
+      android_ripple={{color: '#ededed'}}
+      onPress={onPress}>
       <Text style={styles.date}>{formatDate(date)}</Text>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.body}>{truncate(body)}</Text>
     </Pressable>
   );
-};
+}
 
 const styles = StyleSheet.create({
   block: {
