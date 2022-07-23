@@ -100,5 +100,16 @@
   - For date picker, use library -> `react-native-modal-datetime-picker` and `@react-native-community/datetimepicker`
     - `@react-native-community/datetimepicker` gives you date/time picker  that is specialized to each IOS and Android platform.
     - `react-native-modal-datetime-picker` lets you use date/time picker modal component in a convenient way.
+</details>
+
+<details>
+  <summary><h3>Chapter 8</h3></summary>
   
+  - how to setup firebase for both ios and android
+  - Useful library for firebase in react-native -> `@react-native-firebase` and add `/app`, `/firestore`, `/storage`, or what firebase service you wanna use at the end of `@react-native-firebase` but `app` is essential
+  - Follow steps that are provided by firebase web page for Android, and for IOS, after you download `GoogleService-Info.plist` and put it into ios folder, follow steps in react native firebase official documentation.
+  - ***Useful Info for Form, TextInput***
+    - To hide password in `TextInput`, set `secureTextEntry` props to be true.
+    - Better UX for email input, use ```autoCapitalize="none" autoCorrect={false} autoCompleteType="email" keyboardType="email-address"``` props.
+      - Most of props' names above are self-explanatory. `keyboardType="email-address` shows `@` in keyboard so that user don't need to press special characters button to choose `@`.
 </details>
