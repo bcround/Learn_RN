@@ -108,8 +108,26 @@
   - how to setup firebase for both ios and android
   - Useful library for firebase in react-native -> `@react-native-firebase` and add `/app`, `/firestore`, `/storage`, or what firebase service you wanna use at the end of `@react-native-firebase` but `app` is essential
   - Follow steps that are provided by firebase web page for Android, and for IOS, after you download `GoogleService-Info.plist` and put it into ios folder, follow steps in react native firebase official documentation.
+  ---
   - ***Useful Info for Form, TextInput***
     - To hide password in `TextInput`, set `secureTextEntry` props to be true.
     - Better UX for email input, use ```autoCapitalize="none" autoCorrect={false} autoCompleteType="email" keyboardType="email-address"``` props.
       - Most of props' names above are self-explanatory. `keyboardType="email-address` shows `@` in keyboard so that user don't need to press special characters button to choose `@`.
+    - `returnKeyType=` props on `TextInput` determines how the return key should look.
+  ---
+  - `ActivityIndicator` component shows a spinner.
+  ---
+  - ***FireStore***
+    - collection reference has a method called `add` which creates an unique id automatically. If you want to set an id manually, you can use `yourCollectionReference.doc(yourId).set()`.
+  ---
+  - if login is successful, user would see MainTab screen first, but you can't just use `navigate` or `push` method to show MainTab screen. Because, in screen stack, there is still SignIn screen or SetUpProfile screen so if user swipe screen on IOS or press back button in Android, it will show previous screen.
+    - To handle this situation, you can remove some unnecessary screen from RootStack, if some specific conditions are met.(e.g. if this state exists, then show this screen, otherwise show other screens.
+  - Libraries for images(camera) -> `react-native-image-picker` or `@react-native-community/cameraroll`
+    - In `@react-native-community/cameraroll`, it doesn't show native UI for picking images. You can build your own UI for picking images using react-native.
+    - For IOS to use `react-native-image-picker`, you need to edit `ios/{projectname}/Info.plist` file.
+  - In `react-native-image-picker`
+    - Use `launchCamera(options, callback)`, when you need to use a photo taken by camera right away/
+    - Use `launchImageLibrary(options, callback)`, when you need to pick images from gallery.
+    - For Android, if you use Google Photo, you need to set `includeBase64` option to be true. Because, later when you upload a photo, there might be a permission error when reading a file from uri directly. Therefore, for andriod, encode image to base64 and when upload, use the value that is encoded in base64 to process uploading.
+  - how to use firebase storage
 </details>
