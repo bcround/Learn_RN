@@ -2,6 +2,13 @@
 
 ***REMEMBER:*** If you install library that uses native code, then you need to restart your emulator. (e.g. `yarn android` or `npx pod-install` and `yarn ios`)
 
+***IOS BUILD ERROR***
+- Sometimes, `yarn ios` doesn't work due to bundle error. In this situation to fix,
+    1. First open a project with Xcode, and go to preference. Then, in locations tab, you will see the directory path to Derived Data. Go there, and Delte whole Derived Data folder.
+    2. Delete `ios/.xcworkspace`
+    3. Delete `Podfile.lock`
+    4. pod install again then `yarn ios`
+
 <details>
   <summary><h3>Chapter 3</h3></summary>
 
@@ -130,4 +137,10 @@
     - Use `launchImageLibrary(options, callback)`, when you need to pick images from gallery.
     - For Android, if you use Google Photo, you need to set `includeBase64` option to be true. Because, later when you upload a photo, there might be a permission error when reading a file from uri directly. Therefore, for andriod, encode image to base64 and when upload, use the value that is encoded in base64 to process uploading.
   - how to use firebase storage
+</details>
+
+<details>
+  <summary><h3>Chapter 9</h3></summary>
+  
+  -
 </details>
