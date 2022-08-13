@@ -2,12 +2,19 @@
 
 ***REMEMBER:*** If you install library that uses native code, then you need to restart your emulator. (e.g. `yarn android` or `npx pod-install` and `yarn ios`)
 
-***IOS BUILD ERROR***
+### IOS BUILD ERROR
 - Sometimes, `yarn ios` doesn't work due to bundle error. In this situation to fix,
     1. First open a project with Xcode, and go to preference. Then, in locations tab, you will see the directory path to Derived Data. Go there, and Delte whole Derived Data folder.
     2. Delete `ios/.xcworkspace`
     3. Delete `Podfile.lock`
     4. pod install again then `yarn ios`
+- #### Pod install error
+  - On M1 macbook sometimes it shows pod install error. In this case, you need to run all related applications(Xcode, iterm or terminal, and IDE(VScode for me)) in `Rosetta mode` (as far as I know). Still researching not to use in Rosetta mode since it's slow)
+- #### Using firebase in ios
+  - After you add `GoogleService-Info.plist` in your project folder and build, `FirebaseApp.configure() could not find a valid GoogleService-Info.plist in your project` error pops up. In this case, make sure you add `GoogleService-Info.plist` to ***Build Phases*** in the ***Compile Sources*** section.
+
+- #### react-native-vector-icons ERROR
+  - Even when add fonts to Info.plist doesn't work, you need to create Fonts directory under Project in your Xcode, and add .ttf files from `node_modules/react-native-vector-icons/Fonts/`. Then try to build ios again.
 
 <details>
   <summary><h3>Chapter 3</h3></summary>
@@ -142,5 +149,6 @@
 <details>
   <summary><h3>Chapter 9</h3></summary>
   
-  -
+  - In tab(either bottom or top), you might wanna put one stack each to tab, not just one screen component. Because in one tab, you usually have more than one screen.
+  - 
 </details>
