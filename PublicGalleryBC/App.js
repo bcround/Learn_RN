@@ -1,7 +1,7 @@
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import RootStack from './screens/RootStack';
-import {UserContextProvider} from './contexts/UserContext';
+import { UserContextProvider } from './contexts/UserContext';
 
 const App = () => {
   return (

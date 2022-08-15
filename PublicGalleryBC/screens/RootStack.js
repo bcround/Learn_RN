@@ -1,20 +1,47 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignInScreen from './SignInScreen';
 import WelcomeScreen from './WelcomeScreen';
 import MainTab from './MainTab';
 import { useUserContext } from '../contexts/UserContext';
+import { getUser } from '../lib/users';
+import { subscribeAuth } from '../lib/auth';
+import UploadScreen from './UploadScreen';
 
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
+
+  useEffect(() => {
+    const unsubscribe = subscribeAuth(async (currentUser) => {
+      unsubscribe();
+
+      if (!currentUser) {
+        return;
+      }
+
+      const profile = await getUser(currentUser.uid);
+
+      if (!profile) {
+        return;
+      }
+
+      setUser(profile);
+    });
+  }, [setUser]);
 
   return (
     <Stack.Navigator>
       {user ? (
         <>
           <Stack.Screen name="MainTab" component={MainTab} options={{ headerShown: false }} />
+
+          <Stack.Screen
+            name="Upload"
+            component={UploadScreen}
+            options={{ title: '새 게시물', headerBackTitle: '뒤로가기' }}
+          />
         </>
       ) : (
         <>

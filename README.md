@@ -150,5 +150,45 @@
   <summary><h3>Chapter 9</h3></summary>
   
   - In tab(either bottom or top), you might wanna put one stack each to tab, not just one screen component. Because in one tab, you usually have more than one screen.
-  - 
+  - When using firebase auth, you can persist login state by using `auth().onAuthStateChanged` instead of using AsyncStorage.
+  - use `useSafeAreaInsets()` to know empty space's sizes
+  - `ActionSheetIOS` is UI that let users to choose certain options only in IOS. For Android, you need to make either modal or use `@expo/react-native-action-sheet`. (for creating modal, you can use `Modal` component from react-native)
+    - `onRequestClose` is one of Modal component props which gets called when you press back button in Android.
+  - To launch image gallery or camera, use `launchImageLibrary` and `launchCamera` from `react-native-image-picker`
+  - When layout is complex to use `KeyboardAvoidingView`
+    - You can use `Animated` and `addListener` to Keyboard component. (Refer to UploadScreen.js)
+    - Set delay to be different by 50 with duration so that it can give a little time not to overlap with keyboard appearing.
+      ```
+      Animated.timing(animation, {
+        toValue: isKeyboardOpen ? 0 : width,
+        useNativeDriver: false,
+        duration: 150,
+        delay: 100,
+      })
+      ```
+  - To show top-right button or Icon, you can use 
+    ```
+      navigation.setOptions({
+        headerRight: () => <IconRightButton onPress={onSubmit} name="send" />,
+      });
+    ```
+    in useEffect, where navigation is from `useNavigation()`
+
+  - In IOS, if you type Enter too much, sometimes texts are off the screen. Then you can use KeyboardAvoidingView with `keyboardVerticalOffset` props.
+  - For swiping down refresh feature, you can use `refreshControl` props from FlatList component, and `RefreshControl` component from 'react-native'.
+  - if you set `numColumns` props in FlatList component, it shows list in grid.
+
+  - ***FireStore***
+    - for `createdAt`, it's better to use `firestore.FieldValue.serverTimestamp()` for precise time.
+    - When you call `get()` from collection, it returns QuerySnapshot object.
+      - QuerySnapshot object has array called `docs`, an element of docs(one doc) have `data()` method that returns data in doc. However, it doesn't return unique id, so you might have to get it with `doc.id`.
+    - you can sort collections by using `collection.orderBy(param1, param2)` where param1 is property name and param 2 is 'desc' or 'asc'.
+    - you can limit the amount of 'get' by using `collection.limit(amount)`
+    - `collection.startAfter(doc or number)` takes doc or number as a paramter. If it's a doc, it returns docs after the one that is put in parameter. If it's a number, then it returns docs after nth doc.
+      - There's also `collection.startAt()`. The difference bewteen startAt and startAfter is if it includes the information given by parameter or not.
+    - There's `endBefore` and `endAt` which is the opposite of startAfter and startAt.
+    - You can use startAfter or startAt for infiniteScroll, and endBefore or endAt for swiping down for refresh feature.
+    - To query with condition, you can use `where()` on collection.
+    
+  
 </details>
